@@ -36,11 +36,13 @@ from langchain_core.outputs import (
 )
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
+from pangukitsappdev.agent.react_pangu_agent import ReactPanguAgent
 from pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
-from pangukitsappdev.api.llms.base import get_llm_params
+from pangukitsappdev.api.llms.base import get_llm_params, ConversationMessage, Role
+from pangukitsappdev.api.llms.factory import LLMs
 from pangukitsappdev.api.llms.llm_config import LLMConfig
+from pangukitsappdev.api.tool.base import AbstractTool
 from pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
-from pydantic import BaseModel
 from requests.exceptions import ChunkedEncodingError
 from sqlalchemy.testing.plugin.plugin_base import logging
 
@@ -71,6 +73,7 @@ class ChatPanGu(BaseChatModel, ABC):
     pangu_url: Optional[str]
     token_getter: Optional[IAMTokenProvider]
     with_prompt: Optional[bool]
+    tools_agent: Optional[ReactPanguAgent] = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -78,7 +81,7 @@ class ChatPanGu(BaseChatModel, ABC):
         self.token_getter = IAMTokenProviderFactory.create(self.llm_config.iam_config)
 
     def _request_body(self, messages: List[BaseMessage], stream=True):
-        return {
+        rsp = {
             "messages": _pangu_messages(messages),
             "stream": stream,
             **get_llm_params(
@@ -91,6 +94,7 @@ class ChatPanGu(BaseChatModel, ABC):
                 }
             ),
         }
+        return rsp
 
     def _headers(self):
         token = self.token_getter.get_valid_token()
@@ -180,18 +184,6 @@ class ChatPanGu(BaseChatModel, ABC):
     def _llm_type(self) -> str:
         return "pangu_llm"
 
-    def bind_tools(
-        self,
-        tools: Sequence[Union[Dict[str, Any], Type[BaseModel], Callable, BaseTool]],
-        **kwargs: Any,
-    ) -> Runnable[LanguageModelInput, BaseMessage]:
-        pass
-
-    def with_structured_output(
-        self, schema: Union[Dict, Type[BaseModel]], **kwargs: Any
-    ) -> Runnable[LanguageModelInput, Union[Dict, BaseModel]]:
-        pass
-
     async def _agenerate(
         self,
         messages: List[BaseMessage],
@@ -199,6 +191,8 @@ class ChatPanGu(BaseChatModel, ABC):
         run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> ChatResult:
+        if "tools" in kwargs:
+            return self.invoke_with_tools(messages, **kwargs)
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
@@ -232,6 +226,8 @@ class ChatPanGu(BaseChatModel, ABC):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> ChatResult:
+        if "tools" in kwargs:
+            return self.invoke_with_tools(messages, **kwargs)
         rsp = requests.post(
             self.pangu_url + "/chat/completions",
             headers=self._headers(),
@@ -256,5 +252,52 @@ class ChatPanGu(BaseChatModel, ABC):
                 content=text,
             ),
             generation_info=llm_output,
+        )
+        return ChatResult(generations=[chat_generation])
+
+    def bind_tools(
+        self,
+        tools: Sequence[Union[Dict[str, Any], Type, Callable, BaseTool, AbstractTool]],
+        **kwargs: Any,
+    ) -> Runnable[LanguageModelInput, BaseMessage]:
+        if self.tools_agent is None:
+            config = self.llm_config
+            config.llm_param_config.with_prompt = True
+            # 因为盘古的 tools 实现比较复杂，这里直接调用其原本的实现
+            self.tools_agent = ReactPanguAgent(
+                llm=LLMs.of(
+                    "pangu",
+                    llm_config=config,
+                )
+            )
+            for tool in tools:
+                self.tools_agent.add_tool(tool)
+        return super().bind(tools=tools, **kwargs)
+
+    @staticmethod
+    def _message_role(message: BaseMessage):
+        if isinstance(message, SystemMessage):
+            role = Role.SYSTEM
+        elif isinstance(message, HumanMessage):
+            role = Role.USER
+        elif isinstance(message, AIMessage):
+            role = Role.ASSISTANT
+        else:
+            role = Role.USER
+        return role
+
+    def invoke_with_tools(self, messages: List[BaseMessage], **kwargs) -> ChatResult:
+        msgs: list[ConversationMessage] = []
+        for msg in messages:
+            role = self._message_role(msg)
+            config = msg.dict()
+            config.update(type="chat", role=role)
+            msgs.append(ConversationMessage(**config))
+        rsp = self.tools_agent.run(msgs)
+        chat_generation = ChatGeneration(
+            message=AIMessage(
+                content=rsp.messages[-1].content,
+            ),
+            generation_info=rsp.dict(),
         )
         return ChatResult(generations=[chat_generation])
