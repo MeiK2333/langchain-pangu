@@ -1,4 +1,5 @@
 import json
+import logging
 from abc import ABC
 from json import JSONDecodeError
 from typing import (
@@ -44,7 +45,6 @@ from pangukitsappdev.api.llms.llm_config import LLMConfig
 from pangukitsappdev.api.tool.base import AbstractTool
 from pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
 from requests.exceptions import ChunkedEncodingError
-from sqlalchemy.testing.plugin.plugin_base import logging
 
 
 def _pangu_messages(messages: List[BaseMessage]):
