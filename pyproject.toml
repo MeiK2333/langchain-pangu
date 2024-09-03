@@ -12,6 +12,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "aiohttp==3.10.5",
+    "langchain==0.2.15",
+    "sseclient-py==1.8.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/MeiK2333/langchain-pangu"
