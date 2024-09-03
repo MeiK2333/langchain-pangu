@@ -1,0 +1,2 @@
+class PanGuEmbeddings:
+    pass

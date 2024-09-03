@@ -62,7 +62,7 @@ def _pangu_messages(messages: List[BaseMessage]):
     return pangu_messages
 
 
-class ChatPanGu(BaseChatModel, ABC):
+class ChatPanGu(BaseChatModel):
     temperature: Optional[float]
     max_tokens: Optional[int]
     top_p: Optional[float]

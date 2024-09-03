@@ -1,0 +1,18 @@
+[project]
+name = "langchain_pangu"
+version = "0.0.1"
+authors = [
+    { name = "MeiK", email = "meik2333@gmail.com" },
+]
+description = "langchain-pangu"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/MeiK2333/langchain-pangu"
+Issues = "https://github.com/MeiK2333/langchain-pangu/issues"
