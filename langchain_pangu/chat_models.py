@@ -292,7 +292,7 @@ class ChatPanGu(BaseChatModel):
         msgs: list[ConversationMessage] = []
         for msg in messages:
             role = self._message_role(msg)
-            config = msg.model_dump()
+            config = msg.dict()
             config.update(type="chat", role=role)
             msgs.append(ConversationMessage(**config))
         rsp = self.tools_agent.run(msgs)
@@ -300,6 +300,6 @@ class ChatPanGu(BaseChatModel):
             message=AIMessage(
                 content=rsp.messages[-1].content,
             ),
-            generation_info=rsp.model_dump(),
+            generation_info=rsp.dict(),
         )
         return ChatResult(generations=[chat_generation])

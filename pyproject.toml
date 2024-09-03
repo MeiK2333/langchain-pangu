@@ -1,6 +1,6 @@
 [project]
 name = "langchain_pangu"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
     { name = "MeiK", email = "meik2333@gmail.com" },
 ]
@@ -15,6 +15,7 @@ classifiers = [
 dependencies = [
     "langchain==0.2.15",
     "langchain-community==0.2.15",
+    "langgraph==0.2.16",
     "langchain_openai==0.1.23",
     "sseclient-py==1.8.0",
     "jinja2==3.1.4"
