@@ -3,7 +3,7 @@ from typing import List
 
 import requests
 from langchain.schema.embeddings import Embeddings
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from langchain_pangu.pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
 from langchain_pangu.pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig

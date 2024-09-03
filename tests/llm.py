@@ -1,8 +1,11 @@
+import os
+
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 
 from langchain_pangu import PanGuLLM
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 
+os.environ["SDK_CONFIG_PATH"] = "./llm.properties"
 llm = PanGuLLM(
     llm_config=LLMConfig(),
 )

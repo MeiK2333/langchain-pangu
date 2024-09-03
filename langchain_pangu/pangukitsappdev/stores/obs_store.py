@@ -9,7 +9,7 @@ from langchain.document_loaders import UnstructuredFileLoader
 from langchain.document_loaders.base import BaseLoader
 from langchain.document_loaders.directory import FILE_LOADER_TYPE
 from obs import LogConf, PutObjectHeader
-from pydantic import Field
+from pydantic.v1 import Field
 
 logger = logging.getLogger(__name__)
 

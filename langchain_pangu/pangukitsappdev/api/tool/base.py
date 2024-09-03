@@ -4,7 +4,7 @@ from inspect import signature, Signature
 from typing import Optional, Any, Callable, Type
 
 from langchain.tools import BaseTool
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 DEFAULT_SINGLE_ARG = "arg"
 

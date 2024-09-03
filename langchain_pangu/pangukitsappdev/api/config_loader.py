@@ -3,9 +3,9 @@ import importlib
 import os
 from typing import Dict, Any, Optional, Mapping, Tuple, Callable
 
-from pydantic import BaseSettings, Extra
-from pydantic.env_settings import SettingsError, DotenvType, SettingsSourceCallable, EnvSettingsSource
-from pydantic.utils import deep_update
+from pydantic.v1 import BaseSettings, Extra
+from pydantic.v1.env_settings import SettingsError, DotenvType, SettingsSourceCallable, EnvSettingsSource
+from pydantic.v1.utils import deep_update
 
 SDK_CONFIG_PATH_ENV = "SDK_CONFIG_PATH"
 ENCRYPTED_PREFIX = "{Crypto."

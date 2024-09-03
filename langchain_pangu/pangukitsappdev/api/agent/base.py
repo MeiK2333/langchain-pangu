@@ -10,7 +10,7 @@ from typing import List, Union, Optional, Dict, Any
 
 from langchain.schema.messages import AIMessageChunk, BaseMessage
 from langchain.schema.output import ChatGenerationChunk, LLMResult
-from pydantic.json import pydantic_encoder
+from pydantic.v1.json import pydantic_encoder
 
 from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
 from langchain_pangu.pangukitsappdev.agent.agent_session import AgentSession

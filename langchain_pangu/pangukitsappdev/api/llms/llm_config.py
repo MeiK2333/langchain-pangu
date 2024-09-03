@@ -1,7 +1,7 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional
 
-from pydantic import BaseModel, Field, Extra
+from pydantic.v1 import BaseModel, Field, Extra
 
 from langchain_pangu.pangukitsappdev.api.common_config import IAMConfig, HttpConfig, OpenAIConfig, IAMConfigWrapper
 from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings

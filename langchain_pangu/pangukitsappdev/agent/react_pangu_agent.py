@@ -6,7 +6,6 @@ import logging
 from json import JSONDecodeError
 
 from langchain.prompts import PromptTemplate
-from pydantic.typing import NoneType
 
 from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
 from langchain_pangu.pangukitsappdev.agent.agent_session import AgentSession
@@ -122,7 +121,7 @@ class ReactPanguAgent(AbstractAgent):
                                      f" action return: {action.action_input}")
                 # 这里添加容错，对单个参数的字段名不做限制{}
                 tool_input = list(json_obj.values())[0]
-            elif tool.input_type is NoneType:
+            elif tool.input_type is None:
                 tool_input = "{}"
             else:
                 tool_input = json.loads(action.action_input)

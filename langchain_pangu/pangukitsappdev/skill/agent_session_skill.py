@@ -1,5 +1,5 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
-from pydantic.utils import deepcopy
+from pydantic.v1.utils import deepcopy
 
 from langchain_pangu.pangukitsappdev.agent.agent_session import AgentSession
 from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi

@@ -8,7 +8,7 @@ from typing import Iterator, Type, List, Union, Literal, Optional, Any, Dict
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models.base import BaseChatModel
 from langchain.schema import LLMResult, BaseMessage
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
 from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMParamConfig, LLMConfig

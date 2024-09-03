@@ -5,7 +5,7 @@ import json
 import logging
 from json import JSONDecodeError
 
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
 from langchain_pangu.pangukitsappdev.agent.agent_session import AgentSession

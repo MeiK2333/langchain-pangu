@@ -3,7 +3,7 @@ from typing import List, Dict
 
 import requests
 from langchain.embeddings.base import Embeddings
-from pydantic import BaseModel, Extra
+from pydantic.v1 import BaseModel, Extra
 
 from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
 from langchain_pangu.pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi

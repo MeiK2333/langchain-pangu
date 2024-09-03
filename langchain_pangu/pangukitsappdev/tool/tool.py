@@ -1,9 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional, Type, Union, Callable, Any, get_origin, get_args
 
-from pydantic import BaseModel, create_model, Field
-from pydantic.tools import schema_of
-from pydantic.typing import NoneType
+from pydantic.v1 import BaseModel, create_model, Field
+from pydantic.v1.tools import schema_of
+from pydantic.v1.typing import NoneType
 
 from langchain_pangu.pangukitsappdev.api.tool.base import AbstractTool, PanguFunction, DEFAULT_SINGLE_ARG
 from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates

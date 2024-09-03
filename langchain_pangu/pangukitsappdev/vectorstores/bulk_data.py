@@ -1,7 +1,7 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Any
 
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 
 class BulkData(BaseModel):

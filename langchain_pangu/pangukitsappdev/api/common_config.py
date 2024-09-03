@@ -2,7 +2,7 @@
 from typing import Optional
 from urllib.parse import quote
 
-from pydantic import Field, validator
+from pydantic.v1 import Field, validator
 
 from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
 

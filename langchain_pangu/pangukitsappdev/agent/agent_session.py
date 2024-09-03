@@ -1,7 +1,7 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional, List
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
 from langchain_pangu.pangukitsappdev.api.llms.base import ConversationMessage

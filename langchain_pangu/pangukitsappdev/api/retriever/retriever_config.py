@@ -1,5 +1,5 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from pydantic import Field
+from pydantic.v1 import Field
 
 from langchain_pangu.pangukitsappdev.api.common_config import HttpConfig, ServerInfo
 from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
