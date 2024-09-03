@@ -60,11 +60,11 @@ class PanGuLLM(LLM):
         return headers
 
     def _call(
-        self,
-        prompt: str,
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[CallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            prompt: str,
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[CallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> str:
         rsp = requests.post(
             self.pangu_url + "/text/completions",
@@ -88,20 +88,20 @@ class PanGuLLM(LLM):
         return text
 
     async def _acall(
-        self,
-        prompt: str,
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            prompt: str,
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> str:
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                self.pangu_url + "/text/completions",
-                headers=self._headers(),
-                json=self._request_body(prompt, stream=False),
-                verify_ssl=False,
-                proxy=self.proxies[proto] if proto in self.proxies else None,
+                    self.pangu_url + "/text/completions",
+                    headers=self._headers(),
+                    json=self._request_body(prompt, stream=False),
+                    verify_ssl=False,
+                    proxy=self.proxies[proto] if proto in self.proxies else None,
             ) as rsp:
                 if rsp.status == 200:
                     llm_output = await rsp.json()
@@ -114,11 +114,11 @@ class PanGuLLM(LLM):
         return text
 
     def _stream(
-        self,
-        prompt: str,
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[CallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            prompt: str,
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[CallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> Iterator[GenerationChunk]:
         rsp = requests.post(
             self.pangu_url + "/text/completions",
@@ -138,7 +138,10 @@ class PanGuLLM(LLM):
                     raise ValueError(
                         f"Meet json decode error: {str(data_json)}, not get choices"
                     )
-                yield GenerationChunk(text=data_json["choices"][0]["text"])
+                chunk = GenerationChunk(text=data_json["choices"][0]["text"])
+                yield chunk
+                if run_manager:
+                    run_manager.on_llm_new_token(chunk.text, chunk=chunk)
         except JSONDecodeError as ex:
             # [DONE]表示stream结束了
             pass
@@ -146,20 +149,20 @@ class PanGuLLM(LLM):
             logging.warning(f"Meet error: %s", str(ex))
 
     async def _astream(
-        self,
-        prompt: str,
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            prompt: str,
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> AsyncIterator[GenerationChunk]:
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                self.pangu_url + "/text/completions",
-                headers=self._headers(),
-                json=self._request_body(prompt),
-                verify_ssl=False,
-                proxy=self.proxies[proto] if proto in self.proxies else None,
+                    self.pangu_url + "/text/completions",
+                    headers=self._headers(),
+                    json=self._request_body(prompt),
+                    verify_ssl=False,
+                    proxy=self.proxies[proto] if proto in self.proxies else None,
             ) as rsp:
                 while not rsp.closed:
                     line = await rsp.content.readline()
@@ -172,7 +175,10 @@ class PanGuLLM(LLM):
                             raise ValueError(
                                 f"Meet json decode error: {str(data_json)}, not get choices"
                             )
-                        yield GenerationChunk(text=data_json["choices"][0]["text"])
+                        chunk = GenerationChunk(text=data_json["choices"][0]["text"])
+                        yield chunk
+                        if run_manager:
+                            await run_manager.on_llm_new_token(chunk.text, chunk=chunk)
                     if line.startswith(b"event:"):
                         pass
 

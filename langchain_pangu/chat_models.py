@@ -1,6 +1,5 @@
 import json
 import logging
-from abc import ABC
 from json import JSONDecodeError
 from typing import (
     List,
@@ -106,20 +105,20 @@ class ChatPanGu(BaseChatModel):
         return headers
 
     async def _astream(
-        self,
-        messages: List[BaseMessage],
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            messages: List[BaseMessage],
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> AsyncIterator[ChatGenerationChunk]:
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                self.pangu_url + "/chat/completions",
-                headers=self._headers(),
-                json=self._request_body(messages),
-                verify_ssl=False,
-                proxy=self.proxies[proto] if proto in self.proxies else None,
+                    self.pangu_url + "/chat/completions",
+                    headers=self._headers(),
+                    json=self._request_body(messages),
+                    verify_ssl=False,
+                    proxy=self.proxies[proto] if proto in self.proxies else None,
             ) as rsp:
                 while not rsp.closed:
                     line = await rsp.content.readline()
@@ -138,15 +137,17 @@ class ChatPanGu(BaseChatModel):
                             )
                         )
                         yield chunk
+                        if run_manager:
+                            await run_manager.on_llm_new_token(chunk.text, chunk=chunk)
                     if line.startswith(b"event:"):
                         pass
 
     def _stream(
-        self,
-        messages: List[BaseMessage],
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[CallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            messages: List[BaseMessage],
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[CallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> Iterator[ChatGenerationChunk]:
         rsp = requests.post(
             self.pangu_url + "/chat/completions",
@@ -173,7 +174,7 @@ class ChatPanGu(BaseChatModel):
                 )
                 yield chunk
                 if run_manager:
-                    run_manager.on_llm_new_token(chunk.text)
+                    run_manager.on_llm_new_token(chunk.text, chunk=chunk)
         except JSONDecodeError as ex:
             # [DONE]表示stream结束了
             pass
@@ -185,22 +186,22 @@ class ChatPanGu(BaseChatModel):
         return "pangu_llm"
 
     async def _agenerate(
-        self,
-        messages: List[BaseMessage],
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            messages: List[BaseMessage],
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> ChatResult:
         if "tools" in kwargs:
             return self.invoke_with_tools(messages, **kwargs)
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                self.pangu_url + "/chat/completions",
-                headers=self._headers(),
-                json=self._request_body(messages, stream=False),
-                verify_ssl=False,
-                proxy=self.proxies[proto] if proto in self.proxies else None,
+                    self.pangu_url + "/chat/completions",
+                    headers=self._headers(),
+                    json=self._request_body(messages, stream=False),
+                    verify_ssl=False,
+                    proxy=self.proxies[proto] if proto in self.proxies else None,
             ) as rsp:
                 if rsp.status == 200:
                     llm_output = await rsp.json()
@@ -220,11 +221,11 @@ class ChatPanGu(BaseChatModel):
         return ChatResult(generations=[chat_generation])
 
     def _generate(
-        self,
-        messages: List[BaseMessage],
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[CallbackManagerForLLMRun] = None,
-        **kwargs: Any,
+            self,
+            messages: List[BaseMessage],
+            stop: Optional[List[str]] = None,
+            run_manager: Optional[CallbackManagerForLLMRun] = None,
+            **kwargs: Any,
     ) -> ChatResult:
         if "tools" in kwargs:
             return self.invoke_with_tools(messages, **kwargs)
@@ -256,9 +257,9 @@ class ChatPanGu(BaseChatModel):
         return ChatResult(generations=[chat_generation])
 
     def bind_tools(
-        self,
-        tools: Sequence[Union[Dict[str, Any], Type, Callable, BaseTool, AbstractTool]],
-        **kwargs: Any,
+            self,
+            tools: Sequence[Union[Dict[str, Any], Type, Callable, BaseTool, AbstractTool]],
+            **kwargs: Any,
     ) -> Runnable[LanguageModelInput, BaseMessage]:
         if self.tools_agent is None:
             config = self.llm_config
@@ -290,7 +291,7 @@ class ChatPanGu(BaseChatModel):
         msgs: list[ConversationMessage] = []
         for msg in messages:
             role = self._message_role(msg)
-            config = msg.dict()
+            config = msg.model_dump()
             config.update(type="chat", role=role)
             msgs.append(ConversationMessage(**config))
         rsp = self.tools_agent.run(msgs)
@@ -298,6 +299,6 @@ class ChatPanGu(BaseChatModel):
             message=AIMessage(
                 content=rsp.messages[-1].content,
             ),
-            generation_info=rsp.dict(),
+            generation_info=rsp.model_dump(),
         )
         return ChatResult(generations=[chat_generation])
