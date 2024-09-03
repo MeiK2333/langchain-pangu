@@ -1,7 +1,8 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from langchain.memory.chat_message_histories.redis import RedisChatMessageHistory
-from pangukitsappdev.api.memory.cache.cache_config import ServerInfoRedis
-from pangukitsappdev.api.memory.message_history_config import MessageHistoryConfig
+
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import ServerInfoRedis
+from langchain_pangu.pangukitsappdev.api.memory.message_history_config import MessageHistoryConfig
 
 
 class RedisMessageHistory(RedisChatMessageHistory):

@@ -1,14 +1,13 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from typing import List
 
 try:
     from langchain.vectorstores import VectorStore
 except ImportError:
     from langchain.schema.vectorstore import VectorStore
 
-from pangukitsappdev.api.memory.vector.base import AbstractVectorApi
-from pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
-from pangukitsappdev.vectorstores.css_store import CSSVectorSearch
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import AbstractVectorApi
+from langchain_pangu.pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
+from langchain_pangu.pangukitsappdev.vectorstores.css_store import CSSVectorSearch
 
 
 class CSSVectorApi(AbstractVectorApi):

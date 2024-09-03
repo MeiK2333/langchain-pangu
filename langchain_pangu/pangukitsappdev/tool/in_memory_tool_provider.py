@@ -1,8 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import List
-from pangukitsappdev.api.tool.base import AbstractTool
-from pangukitsappdev.tool.tool_provider import ToolProvider
-from pangukitsappdev.retriever.retrieved_tool import RetrievedTool
+
+from langchain_pangu.pangukitsappdev.api.tool.base import AbstractTool
+from langchain_pangu.pangukitsappdev.retriever.retrieved_tool import RetrievedTool
+from langchain_pangu.pangukitsappdev.tool.tool_provider import ToolProvider
 
 
 class InMemoryToolProvider(ToolProvider):

@@ -1,11 +1,13 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Any
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.api.skill.base import Skill
-from pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
+
 from langchain.memory.buffer import ConversationBufferMemory
-from langchain.schema.memory import BaseMemory
 from langchain.prompts import PromptTemplate
+from langchain.schema.memory import BaseMemory
+
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.api.skill.base import Skill
+from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
 
 class ConversationSkill(Skill):

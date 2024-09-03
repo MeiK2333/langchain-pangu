@@ -5,11 +5,13 @@ import logging
 import uuid
 from abc import ABC
 from typing import Any, Dict, List, Optional, Tuple, Callable
+
 from langchain.embeddings.base import Embeddings
 from langchain.utils import get_from_env
-from pangukitsappdev.api.memory.vector.base import VectorStore, Document
-from pangukitsappdev.utils.time_date import now_millis
-from pangukitsappdev.vectorstores.bulk_data import BulkData
+
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import VectorStore, Document
+from langchain_pangu.pangukitsappdev.utils.time_date import now_millis
+from langchain_pangu.pangukitsappdev.vectorstores.bulk_data import BulkData
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +122,7 @@ class CSSVectorSearch(VectorStore, ABC):
         self.source_fields = source_fields
         self.text_key = text_key
         try:
-            from pangukitsappdev.vectorstores.proxy_http_requests import ProxyRequestsHttpConnection
+            from langchain_pangu.pangukitsappdev.vectorstores.proxy_http_requests import ProxyRequestsHttpConnection
             self.client = elasticsearch.Elasticsearch(elasticsearch_url, connection_class=ProxyRequestsHttpConnection,
                                                       **kwargs)
         except ValueError as e:

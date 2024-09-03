@@ -3,7 +3,7 @@ from typing import List
 
 from langchain.schema import BaseRetriever, Document
 
-from pangukitsappdev.utilities.web_search import WebSearch
+from langchain_pangu.pangukitsappdev.utilities.web_search import WebSearch
 
 
 class WebRetriever(BaseRetriever):

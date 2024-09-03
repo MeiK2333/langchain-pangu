@@ -1,5 +1,6 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Any, List
+
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.schema import BaseMessage, LLMResult
 

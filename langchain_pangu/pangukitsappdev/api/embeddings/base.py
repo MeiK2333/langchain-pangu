@@ -4,7 +4,7 @@ from typing import Dict, List
 
 from langchain.embeddings.base import Embeddings
 
-from pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
+from langchain_pangu.pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
 
 
 class EmbeddingApi(Embeddings, ABC):

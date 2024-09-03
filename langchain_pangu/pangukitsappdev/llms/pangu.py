@@ -15,12 +15,12 @@ from langchain.schema.output import GenerationChunk, LLMResult, Generation, Chat
     ChatGeneration
 from requests.exceptions import ChunkedEncodingError
 
-from pangukitsappdev.api.llms.base import AbstractLLMApi, get_llm_params, ConversationMessage, convert_message_to_req
-from pangukitsappdev.api.llms.llm_config import LLMConfig
-from pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
-from pangukitsappdev.llms.response.llm_response_pangu import LLMRespPangu
-from pangukitsappdev.llms.response.pangu_text_resp import PanguUsage, PanguTextResp, PanguTextChoice
-from pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.api.llms.base import AbstractLLMApi, get_llm_params, convert_message_to_req
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
+from langchain_pangu.pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
+from langchain_pangu.pangukitsappdev.llms.response.llm_response_pangu import LLMRespPangu
+from langchain_pangu.pangukitsappdev.llms.response.pangu_text_resp import PanguUsage, PanguTextResp, PanguTextChoice
 
 logger = logging.getLogger(__name__)
 

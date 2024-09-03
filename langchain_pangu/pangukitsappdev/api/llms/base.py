@@ -8,13 +8,13 @@ from typing import Iterator, Type, List, Union, Literal, Optional, Any, Dict
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models.base import BaseChatModel
 from langchain.schema import LLMResult, BaseMessage
-from pangukitsappdev.agent.agent_action import AgentAction
 from pydantic import BaseModel
 
-from pangukitsappdev.api.llms.llm_config import LLMParamConfig, LLMConfig
-from pangukitsappdev.api.schema import LLMResp
-from pangukitsappdev.api.memory.cache.base import CacheApi
-from pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
+from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMParamConfig, LLMConfig
+from langchain_pangu.pangukitsappdev.api.memory.cache.base import CacheApi
+from langchain_pangu.pangukitsappdev.api.schema import LLMResp
+from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
 logger = logging.getLogger(__name__)
 

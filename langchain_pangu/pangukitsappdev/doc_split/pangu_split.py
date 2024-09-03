@@ -1,14 +1,15 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 
-from typing import List
-import requests
 import time
+from typing import List
 
-from pangukitsappdev.api.doc_split.split_config import SplitConfig
-from pangukitsappdev.api.doc_split.base import AbstractLoaderApi
-from pangukitsappdev.api.memory.vector.base import Document
-from pangukitsappdev.auth.iam import IAMTokenProviderFactory
-from pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
+import requests
+
+from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.api.doc_split.base import AbstractLoaderApi
+from langchain_pangu.pangukitsappdev.api.doc_split.split_config import SplitConfig
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import Document
+from langchain_pangu.pangukitsappdev.auth.iam import IAMTokenProviderFactory
 
 
 def extract_actions(result):

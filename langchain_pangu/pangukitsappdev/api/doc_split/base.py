@@ -6,7 +6,7 @@ from typing import List, Iterator
 from langchain.document_loaders.base import BaseLoader
 from langchain.schema import Document
 
-from pangukitsappdev.api.doc_split.split_config import SplitConfig
+from langchain_pangu.pangukitsappdev.api.doc_split.split_config import SplitConfig
 
 
 class LoaderApi(BaseLoader, ABC):

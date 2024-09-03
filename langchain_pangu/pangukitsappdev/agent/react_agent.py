@@ -1,14 +1,17 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from __future__ import unicode_literals
+
 import json
 import logging
 from json import JSONDecodeError
+
 from pydantic import ValidationError
-from pangukitsappdev.agent.agent_action import AgentAction
-from pangukitsappdev.agent.agent_session import AgentSession
-from pangukitsappdev.api.agent.base import AbstractAgent, AgentSessionHelper
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
+
+from langchain_pangu.pangukitsappdev.agent.agent_action import AgentAction
+from langchain_pangu.pangukitsappdev.agent.agent_session import AgentSession
+from langchain_pangu.pangukitsappdev.api.agent.base import AbstractAgent, AgentSessionHelper
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
 logger = logging.getLogger(__name__)
 

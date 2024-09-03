@@ -3,9 +3,8 @@ from typing import Optional
 
 from pydantic import Field
 
-from pangukitsappdev.api.common_config import IAMConfig, OpenAIConfig, HttpConfig, IAMConfigWrapper
-from pangukitsappdev.api.config_loader import SdkBaseSettings
-
+from langchain_pangu.pangukitsappdev.api.common_config import IAMConfig, OpenAIConfig, HttpConfig, IAMConfigWrapper
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
 
 DEFAULT_EMBEDDING_CONFIG_ENV_PREFIX = "sdk.embedding.css"
 

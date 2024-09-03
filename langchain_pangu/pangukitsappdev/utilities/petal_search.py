@@ -1,11 +1,12 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from typing import List
-import requests
 import logging
-from pangukitsappdev.api.memory.vector.base import Document
-from pangukitsappdev.api.retriever.retriever_config import WebSearchConfig
-from pangukitsappdev.utilities.web_search import WebSearch
+from typing import List
 
+import requests
+
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import Document
+from langchain_pangu.pangukitsappdev.api.retriever.retriever_config import WebSearchConfig
+from langchain_pangu.pangukitsappdev.utilities.web_search import WebSearch
 
 logger = logging.getLogger(__name__)
 

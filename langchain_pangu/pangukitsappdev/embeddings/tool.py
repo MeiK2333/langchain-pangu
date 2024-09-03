@@ -1,10 +1,12 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import List
+
 import requests
 from langchain.schema.embeddings import Embeddings
 from pydantic import BaseModel
-from pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
-from pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
+
+from langchain_pangu.pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
+from langchain_pangu.pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
 
 
 class ToolEmbeddings(Embeddings, BaseModel):

@@ -2,11 +2,11 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Union, List
 
-from langchain.schema.prompt_template import BasePromptTemplate
 from langchain.chains.llm import LLMChain
+from langchain.schema.prompt_template import BasePromptTemplate
 
-from pangukitsappdev.api.llms.base import LLMApi, ConversationMessage
-from pangukitsappdev.api.llms.llm_config import LLMParamConfig
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi, ConversationMessage
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMParamConfig
 
 
 class Skill(ABC):

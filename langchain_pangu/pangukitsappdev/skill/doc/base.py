@@ -5,9 +5,9 @@ from typing import List, Dict, Any
 
 from langchain.schema.prompt_template import BasePromptTemplate
 
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.api.skill.base import Skill
-from pangukitsappdev.api.memory.vector.base import Document
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import Document
+from langchain_pangu.pangukitsappdev.api.skill.base import Skill
 
 logger = logging.getLogger(__name__)
 

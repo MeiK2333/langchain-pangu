@@ -1,11 +1,11 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Type, Dict
 
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.api.llms.llm_config import LLMConfig, LLMModuleConfig
-from pangukitsappdev.llms.openai import OpenAILLMApi
-from pangukitsappdev.llms.pangu import PanguLLMApi
-from pangukitsappdev.llms.gallery import GalleryLLMApi
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig, LLMModuleConfig
+from langchain_pangu.pangukitsappdev.llms.gallery import GalleryLLMApi
+from langchain_pangu.pangukitsappdev.llms.openai import OpenAILLMApi
+from langchain_pangu.pangukitsappdev.llms.pangu import PanguLLMApi
 
 
 class LLMs:

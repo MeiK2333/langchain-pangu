@@ -1,10 +1,10 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
 from pydantic.utils import deepcopy
-from pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
-from pangukitsappdev.agent.agent_session import AgentSession
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.api.skill.base import Skill, SimpleSkill
+from langchain_pangu.pangukitsappdev.agent.agent_session import AgentSession
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.api.skill.base import Skill, SimpleSkill
+from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
 
 class AgentSessionSkill(Skill):

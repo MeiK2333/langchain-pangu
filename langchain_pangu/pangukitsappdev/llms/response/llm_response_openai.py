@@ -1,6 +1,6 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from pangukitsappdev.api.schema import LLMResp
-from pangukitsappdev.llms.response.openai_text_resp import OpenAITextResp
+from langchain_pangu.pangukitsappdev.api.schema import LLMResp
+from langchain_pangu.pangukitsappdev.llms.response.openai_text_resp import OpenAITextResp
 
 
 class LLMRespOpenAI(LLMResp):

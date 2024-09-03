@@ -1,8 +1,8 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from pangukitsappdev.api.config_loader import SdkBaseSettings
 from pydantic import Field
 
-from pangukitsappdev.api.common_config import HttpConfig, ServerInfo
+from langchain_pangu.pangukitsappdev.api.common_config import HttpConfig, ServerInfo
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
 
 
 class KGConfig(SdkBaseSettings):

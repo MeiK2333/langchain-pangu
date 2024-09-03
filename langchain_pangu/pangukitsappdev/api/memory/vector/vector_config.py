@@ -3,9 +3,9 @@ from typing import Optional, List
 
 from pydantic import Field
 
-from pangukitsappdev.api.common_config import ServerInfo, HttpConfig
-from pangukitsappdev.api.config_loader import SdkBaseSettings
-from pangukitsappdev.api.embeddings.base import EmbeddingApi
+from langchain_pangu.pangukitsappdev.api.common_config import ServerInfo, HttpConfig
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
+from langchain_pangu.pangukitsappdev.api.embeddings.base import EmbeddingApi
 
 
 class ServerInfoCss(ServerInfo):

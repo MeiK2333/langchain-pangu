@@ -4,9 +4,9 @@ from typing import Dict
 
 import requests
 
-from pangukitsappdev.api.common_config import IAMConfig
-from pangukitsappdev.utils.time_date import now_millis
-from pangukitsappdev.api.common_config import IAM_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.api.common_config import IAMConfig
+from langchain_pangu.pangukitsappdev.api.common_config import IAM_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.utils.time_date import now_millis
 
 
 class IAMTokenProvider:

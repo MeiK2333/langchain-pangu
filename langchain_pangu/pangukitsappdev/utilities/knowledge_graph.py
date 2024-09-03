@@ -1,7 +1,8 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from abc import ABC, abstractmethod
 from typing import List
-from pangukitsappdev.api.memory.vector.base import Document
+
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import Document
 
 
 class KnowledgeGraph(ABC):

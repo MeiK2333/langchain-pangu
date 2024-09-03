@@ -1,11 +1,12 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Type
-from pangukitsappdev.api.memory.cache.base import CacheApi
-from pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig, ServerInfoSql
-from pangukitsappdev.cache.gptcache_adapter import SemanticGptCacheApi
-from pangukitsappdev.cache.in_memory import InMemoryCacheApi
-from pangukitsappdev.cache.sql import SqlCacheApi
-from pangukitsappdev.cache.ttl_redis import RedisCacheApi, RedisSemanticCacheApi
+
+from langchain_pangu.pangukitsappdev.api.memory.cache.base import CacheApi
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig, ServerInfoSql
+from langchain_pangu.pangukitsappdev.cache.gptcache_adapter import SemanticGptCacheApi
+from langchain_pangu.pangukitsappdev.cache.in_memory import InMemoryCacheApi
+from langchain_pangu.pangukitsappdev.cache.sql import SqlCacheApi
+from langchain_pangu.pangukitsappdev.cache.ttl_redis import RedisCacheApi, RedisSemanticCacheApi
 
 
 class Caches:

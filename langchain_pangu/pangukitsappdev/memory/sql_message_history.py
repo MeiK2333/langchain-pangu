@@ -1,13 +1,15 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 import json
 from typing import List
-from pangukitsappdev.api.memory.cache.cache_config import ServerInfoSql
-from sqlalchemy import Column, Integer, Text, create_engine, String
-from pangukitsappdev.api.memory.message_history_config import MessageHistoryConfig
-from sqlalchemy.orm import sessionmaker
+
 from langchain.schema import BaseChatMessageHistory
 from langchain.schema.messages import BaseMessage, messages_from_dict
-from pangukitsappdev.utils.time_date import now_yyyyMMddHHmmss, now_sec, to_yyyyMMddHHmmss
+from sqlalchemy import Column, Integer, Text, create_engine, String
+from sqlalchemy.orm import sessionmaker
+
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import ServerInfoSql
+from langchain_pangu.pangukitsappdev.api.memory.message_history_config import MessageHistoryConfig
+from langchain_pangu.pangukitsappdev.utils.time_date import now_yyyyMMddHHmmss, now_sec, to_yyyyMMddHHmmss
 
 
 def message_to_dict(message: BaseMessage) -> dict:

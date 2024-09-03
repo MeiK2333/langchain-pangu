@@ -1,12 +1,12 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Type
 
-from pangukitsappdev.api.common_config import IAMConfigWrapper, HttpConfig
-from pangukitsappdev.api.embeddings.base import EmbeddingApi
-from pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
-from pangukitsappdev.embeddings.openai import OpenAIEmbeddingApi
-from pangukitsappdev.embeddings.pangu import CSSEmbeddingApi
-from pangukitsappdev.embeddings.tool import ToolEmbeddingApi
+from langchain_pangu.pangukitsappdev.api.common_config import IAMConfigWrapper, HttpConfig
+from langchain_pangu.pangukitsappdev.api.embeddings.base import EmbeddingApi
+from langchain_pangu.pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
+from langchain_pangu.pangukitsappdev.embeddings.openai import OpenAIEmbeddingApi
+from langchain_pangu.pangukitsappdev.embeddings.pangu import CSSEmbeddingApi
+from langchain_pangu.pangukitsappdev.embeddings.tool import ToolEmbeddingApi
 
 
 class Embeddings:

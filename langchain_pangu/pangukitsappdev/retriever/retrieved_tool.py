@@ -1,5 +1,5 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from pangukitsappdev.retriever.tool_metadata import ToolMetadata
+from langchain_pangu.pangukitsappdev.retriever.tool_metadata import ToolMetadata
 
 
 class RetrievedTool(ToolMetadata):

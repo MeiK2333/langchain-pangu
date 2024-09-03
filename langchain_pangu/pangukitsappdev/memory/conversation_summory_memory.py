@@ -1,7 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Any, List
+
 from langchain.memory.chat_memory import BaseChatMemory
-from pangukitsappdev.api.skill.base import SimpleSkill
+
+from langchain_pangu.pangukitsappdev.api.skill.base import SimpleSkill
 
 
 class ConversationSummaryBufferMemory(BaseChatMemory):

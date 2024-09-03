@@ -1,10 +1,10 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional
 
-from pangukitsappdev.api.common_config import IAMConfig, IAMConfigWrapper, HttpConfig
 from pydantic import Field
 
-from pangukitsappdev.api.config_loader import SdkBaseSettings
+from langchain_pangu.pangukitsappdev.api.common_config import IAMConfig, IAMConfigWrapper, HttpConfig
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
 
 
 class SplitConfig(SdkBaseSettings):

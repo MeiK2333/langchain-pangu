@@ -4,7 +4,7 @@ from urllib.parse import quote
 
 from pydantic import Field, validator
 
-from pangukitsappdev.api.config_loader import SdkBaseSettings
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
 
 AUTH_TOKEN_HEADER = "X-Auth-Token"
 IAM_TOKEN_HEADER = "X-Subject-Token"

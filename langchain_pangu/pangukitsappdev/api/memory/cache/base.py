@@ -1,10 +1,11 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from abc import ABC, abstractmethod
 from typing import Optional
-from langchain.schema.cache import BaseCache
-from langchain.schema import Generation
 
-from pangukitsappdev.api.schema import LLMResp
+from langchain.schema import Generation
+from langchain.schema.cache import BaseCache
+
+from langchain_pangu.pangukitsappdev.api.schema import LLMResp
 
 
 class CacheApi(ABC):

@@ -1,10 +1,11 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional
+
 from pydantic import Field
 
-from pangukitsappdev.api.memory.cache.cache_config import ServerInfoRedis
-from pangukitsappdev.api.common_config import ServerInfo
-from pangukitsappdev.api.config_loader import SdkBaseSettings
+from langchain_pangu.pangukitsappdev.api.common_config import ServerInfo
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import ServerInfoRedis
 
 
 class MessageHistoryConfig(SdkBaseSettings):

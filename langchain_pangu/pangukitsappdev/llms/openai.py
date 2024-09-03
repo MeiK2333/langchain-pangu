@@ -1,14 +1,14 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from langchain.llms.openai import OpenAI
-from langchain_openai import ChatOpenAI
 from langchain.chat_models.base import BaseChatModel
 from langchain.llms.base import BaseLLM
+from langchain.llms.openai import OpenAI
 from langchain.schema import LLMResult
+from langchain_openai import ChatOpenAI
 
-from pangukitsappdev.api.llms.base import AbstractLLMApi
-from pangukitsappdev.api.llms.llm_config import LLMConfig
-from pangukitsappdev.llms.response.llm_response_openai import LLMRespOpenAI
-from pangukitsappdev.llms.response.openai_text_resp import OpenAIUsage, OpenAITextResp
+from langchain_pangu.pangukitsappdev.api.llms.base import AbstractLLMApi
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
+from langchain_pangu.pangukitsappdev.llms.response.llm_response_openai import LLMRespOpenAI
+from langchain_pangu.pangukitsappdev.llms.response.openai_text_resp import OpenAIUsage, OpenAITextResp
 
 
 class OpenAILLMApi(AbstractLLMApi):

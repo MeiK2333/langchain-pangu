@@ -3,10 +3,10 @@ from typing import Dict
 
 from langchain.prompts import PromptTemplate
 
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.api.llms.factory import LLMs
-from pangukitsappdev.api.skill.base import SimpleSkill
-from pangukitsappdev.skill.qa_with_sources import DocAskSkill
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.api.llms.factory import LLMs
+from langchain_pangu.pangukitsappdev.api.skill.base import SimpleSkill
+from langchain_pangu.pangukitsappdev.skill.qa_with_sources import DocAskSkill
 
 
 class DocumentSkills:

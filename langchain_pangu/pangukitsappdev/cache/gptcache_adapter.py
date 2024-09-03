@@ -12,14 +12,14 @@ from gptcache.manager import get_data_manager
 from gptcache.manager.scalar_data.redis_storage import RedisCacheStorage
 from gptcache.manager.vector_data.base import VectorBase, VectorData
 from langchain.cache import GPTCache
-from pangukitsappdev.api.memory.vector.base import Document
 
-from pangukitsappdev.api.memory.cache.base import CacheApiAdapter
-from pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig
-from pangukitsappdev.api.memory.vector.factory import Vectors
-from pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
-from pangukitsappdev.vectorstores.css_store import CSSVectorSearch
-from pangukitsappdev.vectorstores.bulk_data import BulkData
+from langchain_pangu.pangukitsappdev.api.memory.cache.base import CacheApiAdapter
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import Document
+from langchain_pangu.pangukitsappdev.api.memory.vector.factory import Vectors
+from langchain_pangu.pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
+from langchain_pangu.pangukitsappdev.vectorstores.bulk_data import BulkData
+from langchain_pangu.pangukitsappdev.vectorstores.css_store import CSSVectorSearch
 
 GPT_CACHE_CSS_INDEX_PREFIX = "gptcache_prompt_index"
 

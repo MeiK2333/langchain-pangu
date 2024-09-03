@@ -9,8 +9,8 @@ try:
     from langchain.vectorstores import VectorStore as BaseVectorStore
 except ImportError:
     from langchain.schema.vectorstore import VectorStore as BaseVectorStore
-from pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
-from pangukitsappdev.vectorstores.bulk_data import BulkData
+from langchain_pangu.pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
+from langchain_pangu.pangukitsappdev.vectorstores.bulk_data import BulkData
 
 logger = logging.getLogger(__name__)
 

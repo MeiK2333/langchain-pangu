@@ -1,9 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Type
 
-from pangukitsappdev.api.memory.vector.base import VectorApi
-from pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
-from pangukitsappdev.vectorstores.adapter import CSSVectorApi
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import VectorApi
+from langchain_pangu.pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
+from langchain_pangu.pangukitsappdev.vectorstores.adapter import CSSVectorApi
 
 
 class Vectors:

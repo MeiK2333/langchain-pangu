@@ -1,7 +1,7 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 import base64
-import secrets
 import hmac
+import secrets
 from hashlib import sha256
 
 

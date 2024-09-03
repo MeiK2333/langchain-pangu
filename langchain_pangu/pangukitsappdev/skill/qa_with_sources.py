@@ -1,7 +1,7 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from pangukitsappdev.api.llms.base import LLMApi
-from pangukitsappdev.api.skill.base import SimpleSkill
-from pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi
+from langchain_pangu.pangukitsappdev.api.skill.base import SimpleSkill
+from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
 
 class DocAskSkill(SimpleSkill):

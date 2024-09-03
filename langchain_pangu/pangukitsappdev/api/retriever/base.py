@@ -1,14 +1,15 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from abc import ABC, abstractmethod
 from typing import List, Optional, Callable
-from pangukitsappdev.api.llms.base import ConversationMessage
-from pangukitsappdev.vectorstores.bulk_data import BulkData
-from pangukitsappdev.api.memory.vector.base import VectorApi, Document
-from pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
-from pangukitsappdev.tool.tool_provider import ToolProvider
-from pangukitsappdev.api.tool.base import AbstractTool
-from pangukitsappdev.retriever.tool_metadata import ToolMetadata
-from pangukitsappdev.retriever.retrieved_tool import RetrievedTool
+
+from langchain_pangu.pangukitsappdev.api.llms.base import ConversationMessage
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import VectorApi, Document
+from langchain_pangu.pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
+from langchain_pangu.pangukitsappdev.api.tool.base import AbstractTool
+from langchain_pangu.pangukitsappdev.retriever.retrieved_tool import RetrievedTool
+from langchain_pangu.pangukitsappdev.retriever.tool_metadata import ToolMetadata
+from langchain_pangu.pangukitsappdev.tool.tool_provider import ToolProvider
+from langchain_pangu.pangukitsappdev.vectorstores.bulk_data import BulkData
 
 
 class ToolRetriever(ABC):

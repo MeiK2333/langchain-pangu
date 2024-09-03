@@ -1,12 +1,12 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Any, Optional
-from cachetools import TTLCache, LRUCache
 
+from cachetools import TTLCache, LRUCache
 from langchain.schema.cache import BaseCache
 from langchain.schema.cache import RETURN_VAL_TYPE
 
-from pangukitsappdev.api.memory.cache.base import CacheApiAdapter
-from pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig
+from langchain_pangu.pangukitsappdev.api.memory.cache.base import CacheApiAdapter
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig
 
 
 class InMemoryCacheApi(CacheApiAdapter):

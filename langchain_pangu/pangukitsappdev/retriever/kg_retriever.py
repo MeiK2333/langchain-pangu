@@ -1,9 +1,11 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import List
+
 from langchain.callbacks.manager import CallbackManagerForRetrieverRun
 from langchain.schema import Document
 from langchain.schema.retriever import BaseRetriever
-from pangukitsappdev.utilities.knowledge_graph import KnowledgeGraph
+
+from langchain_pangu.pangukitsappdev.utilities.knowledge_graph import KnowledgeGraph
 
 
 class KGRetriever(BaseRetriever):

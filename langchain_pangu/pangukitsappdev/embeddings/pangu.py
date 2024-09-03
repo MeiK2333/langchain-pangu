@@ -5,10 +5,10 @@ import requests
 from langchain.embeddings.base import Embeddings
 from pydantic import BaseModel, Extra
 
-from pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
-from pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
-from pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
-from pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
+from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
+from langchain_pangu.pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
+from langchain_pangu.pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
 
 
 def _default_doc_map(text: str) -> dict:

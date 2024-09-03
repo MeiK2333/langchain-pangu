@@ -1,12 +1,13 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import List
-from pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
-from pangukitsappdev.api.memory.vector.factory import Vectors
-from pangukitsappdev.api.memory.vector.base import VectorApi
-from pangukitsappdev.api.retriever.base import AbstractToolRetriever
-from pangukitsappdev.api.tool.base import AbstractTool
-from pangukitsappdev.tool.tool_provider import ToolProvider
-from pangukitsappdev.retriever.tool_metadata import ToolMetadata
+
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import VectorApi
+from langchain_pangu.pangukitsappdev.api.memory.vector.factory import Vectors
+from langchain_pangu.pangukitsappdev.api.memory.vector.vector_config import VectorStoreConfig
+from langchain_pangu.pangukitsappdev.api.retriever.base import AbstractToolRetriever
+from langchain_pangu.pangukitsappdev.api.tool.base import AbstractTool
+from langchain_pangu.pangukitsappdev.retriever.tool_metadata import ToolMetadata
+from langchain_pangu.pangukitsappdev.tool.tool_provider import ToolProvider
 
 
 class ToolRetrieverImpl(AbstractToolRetriever):

@@ -1,10 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Dict, Type
 
-
-from pangukitsappdev.api.doc_split.base import LoaderApi
-from pangukitsappdev.api.doc_split.split_config import SplitConfig
-from pangukitsappdev.doc_split.pangu_split import DocPanguSplit
+from langchain_pangu.pangukitsappdev.api.doc_split.base import LoaderApi
+from langchain_pangu.pangukitsappdev.api.doc_split.split_config import SplitConfig
+from langchain_pangu.pangukitsappdev.doc_split.pangu_split import DocPanguSplit
 
 
 class DocSplits:

@@ -1,10 +1,12 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from typing import List
-from pangukitsappdev.api.skill.base import SimpleSkill
-from pangukitsappdev.api.llms.base import LLMApi, ConversationMessage
-from pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
-from langchain.prompts import PromptTemplate
 import logging
+from typing import List
+
+from langchain.prompts import PromptTemplate
+
+from langchain_pangu.pangukitsappdev.api.llms.base import LLMApi, ConversationMessage
+from langchain_pangu.pangukitsappdev.api.skill.base import SimpleSkill
+from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
 
 logger = logging.getLogger(__name__)
 

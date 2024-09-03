@@ -1,8 +1,10 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional, Type
-from pangukitsappdev.tool.tool import Tool
+
 from pydantic import Field, BaseModel
-from pangukitsappdev.tool.python_sandbox import PythonSandBox
+
+from langchain_pangu.pangukitsappdev.tool.python_sandbox import PythonSandBox
+from langchain_pangu.pangukitsappdev.tool.tool import Tool
 
 
 class PythonInterpreterTool(Tool):

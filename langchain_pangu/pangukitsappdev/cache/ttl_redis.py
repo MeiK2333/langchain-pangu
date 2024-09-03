@@ -1,12 +1,13 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from typing import Optional, Any
-from langchain.schema.cache import RETURN_VAL_TYPE
+from typing import Any
+
 from langchain.cache import RedisCache, RedisSemanticCache
 from langchain.embeddings.base import Embeddings
+from langchain.schema.cache import RETURN_VAL_TYPE
 from redis import Redis
 
-from pangukitsappdev.api.memory.cache.base import CacheApiAdapter
-from pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig
+from langchain_pangu.pangukitsappdev.api.memory.cache.base import CacheApiAdapter
+from langchain_pangu.pangukitsappdev.api.memory.cache.cache_config import CacheStoreConfig
 
 
 class RedisCacheApi(CacheApiAdapter):

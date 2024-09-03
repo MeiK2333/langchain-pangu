@@ -1,10 +1,11 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 import json
-from typing import Optional, List
 import logging
-from pangukitsappdev.retriever.web_retirever import WebRetriever
-from pangukitsappdev.utilities.web_search import WebSearch
-from pangukitsappdev.tool.tool import Tool
+from typing import Optional, List
+
+from langchain_pangu.pangukitsappdev.retriever.web_retirever import WebRetriever
+from langchain_pangu.pangukitsappdev.tool.tool import Tool
+from langchain_pangu.pangukitsappdev.utilities.web_search import WebSearch
 
 logger = logging.getLogger(__name__)
 

@@ -1,8 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 
+from typing import Optional, Any, Dict, Union, List
+
 from langchain.callbacks.manager import CallbackManagerForChainRun
 from langchain.chains import RetrievalQAWithSourcesChain
-from typing import Optional, Any, Dict, Union, List
 
 
 class RetrievalQAWithAllSourcesChain(RetrievalQAWithSourcesChain):

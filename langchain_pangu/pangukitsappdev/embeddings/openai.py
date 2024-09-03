@@ -1,9 +1,9 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from langchain_openai import OpenAIEmbeddings
 from langchain.embeddings.base import Embeddings
+from langchain_openai import OpenAIEmbeddings
 
-from pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
-from pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
+from langchain_pangu.pangukitsappdev.api.embeddings.base import AbstractEmbeddingApi
+from langchain_pangu.pangukitsappdev.api.embeddings.embedding_config import EmbeddingConfig
 
 
 class OpenAIEmbeddingApi(AbstractEmbeddingApi):

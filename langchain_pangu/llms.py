@@ -12,11 +12,12 @@ from langchain_core.callbacks import (
 )
 from langchain_core.language_models import LLM
 from langchain_core.outputs import GenerationChunk
+from requests.exceptions import ChunkedEncodingError
+
 from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
 from langchain_pangu.pangukitsappdev.api.llms.base import get_llm_params
 from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 from langchain_pangu.pangukitsappdev.auth.iam import IAMTokenProviderFactory, IAMTokenProvider
-from requests.exceptions import ChunkedEncodingError
 
 
 class PanGuLLM(LLM):

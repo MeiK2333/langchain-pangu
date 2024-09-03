@@ -1,9 +1,11 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-import os
 import json
-from langchain.prompts import PromptTemplate
-from pangukitsappdev.api.prompt.prompt_config import PromptConfig, PromptTemplatesFileConfig
 import logging
+import os
+
+from langchain.prompts import PromptTemplate
+
+from langchain_pangu.pangukitsappdev.api.prompt.prompt_config import PromptConfig, PromptTemplatesFileConfig
 
 logger = logging.getLogger(__name__)
 

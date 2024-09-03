@@ -1,12 +1,14 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
-from typing import List
 import logging
+from typing import List
+
 import requests
-from pangukitsappdev.api.memory.vector.base import Document
-from pangukitsappdev.api.retriever.retriever_config import KGConfig
-from pangukitsappdev.utilities.knowledge_graph import KnowledgeGraph
-from pangukitsappdev.utils.security_util import SecurityUtil
-from pangukitsappdev.utils.time_date import now_millis
+
+from langchain_pangu.pangukitsappdev.api.memory.vector.base import Document
+from langchain_pangu.pangukitsappdev.api.retriever.retriever_config import KGConfig
+from langchain_pangu.pangukitsappdev.utilities.knowledge_graph import KnowledgeGraph
+from langchain_pangu.pangukitsappdev.utils.security_util import SecurityUtil
+from langchain_pangu.pangukitsappdev.utils.time_date import now_millis
 
 logger = logging.getLogger(__name__)
 

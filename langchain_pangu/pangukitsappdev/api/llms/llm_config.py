@@ -3,8 +3,8 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, Extra
 
-from pangukitsappdev.api.common_config import IAMConfig, HttpConfig, OpenAIConfig, IAMConfigWrapper
-from pangukitsappdev.api.config_loader import SdkBaseSettings
+from langchain_pangu.pangukitsappdev.api.common_config import IAMConfig, HttpConfig, OpenAIConfig, IAMConfigWrapper
+from langchain_pangu.pangukitsappdev.api.config_loader import SdkBaseSettings
 
 
 class GalleryConfig(SdkBaseSettings):

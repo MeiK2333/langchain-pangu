@@ -1,7 +1,8 @@
 #  Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
 from typing import Optional
-from pangukitsappdev.tool.tool import Tool
-from pangukitsappdev.tool.python_sandbox import PythonSandBox
+
+from langchain_pangu.pangukitsappdev.tool.python_sandbox import PythonSandBox
+from langchain_pangu.pangukitsappdev.tool.tool import Tool
 
 
 class UnifyPythonInterpreterTool(Tool):
