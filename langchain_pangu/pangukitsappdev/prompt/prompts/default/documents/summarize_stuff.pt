@@ -1,0 +1,5 @@
+写出以下内容的简明摘要：
+
+{% for item in documents %}{{ item.pageContent }}{% if not loop.last %},{% endif %}{% endfor %}
+
+简明摘要：

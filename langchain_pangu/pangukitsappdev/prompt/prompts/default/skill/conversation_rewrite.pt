@@ -1,0 +1,6 @@
+以下是用户与助手的多轮对话，请将其改写成一句话，尽量简洁，提取关键信息：
+{% for message in messages %}{{message.role.desc}}：{{message.content}}
+{% endfor %}
+
+改写结果：
+用户：

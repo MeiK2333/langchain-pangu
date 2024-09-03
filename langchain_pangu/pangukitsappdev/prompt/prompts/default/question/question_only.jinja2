@@ -1,0 +1,7 @@
+{% for item in qaPairs -%}
+{{ item.question }}{% if not loop.last %} | {% endif %}
+{%- endfor -%}
+{% if qaPairs %}。{% endif -%}
+请根据以上背景补全以下问题：{{ final_query }}
+输出：
+

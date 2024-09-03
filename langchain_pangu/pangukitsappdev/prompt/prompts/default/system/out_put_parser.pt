@@ -1,0 +1,11 @@
+回答用户的问题，输出一个合法的JSON，并且符合JSON schema要求。
+例如：对于JSON schema：{"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+{"foo"：["bar","baz"]}是格式正确的实例，{"properties": {"foo": ["bar", "baz"]}}是格式不正确的实例。
+
+开始！
+输出的JSON schema为：
+{{schema}}
+
+{{prompt}}
+
+输出的JSON为：

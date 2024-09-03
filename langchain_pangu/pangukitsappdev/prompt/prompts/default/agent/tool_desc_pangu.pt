@@ -1,0 +1,1 @@
+{% for tool in tools %}[unused9]系统：你可以使用如下工具： {{tool.panguFunction}}[unused10]{% endfor %}

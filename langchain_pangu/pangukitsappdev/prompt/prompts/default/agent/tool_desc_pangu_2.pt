@@ -1,0 +1,2 @@
+{% for tool in tools %}
+{{tool.panguFunction}}{% endfor %}

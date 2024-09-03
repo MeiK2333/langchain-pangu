@@ -1,0 +1,8 @@
+以下为你之前为了回答用户问题而进行的过程，包括思考、工具调用和结果观察：
+
+{% for action in actions %}{{action.thought}}
+{% endfor %}
+
+请根据以上过程回答用户问题：
+{% for message in messages %}{{message.role.desc}}：{{message.content}}
+{% endfor %}助手：

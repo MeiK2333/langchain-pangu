@@ -1,0 +1,3 @@
+{% for tool in tools %}{{ tool.toolId }}：{{tool.toolDesc}}，{{tool.toolPrinciple}}。工具的输入为：{{tool.inputSchema}}。工具的输出为：{{tool.outputSchema}}
+
+{% endfor %}

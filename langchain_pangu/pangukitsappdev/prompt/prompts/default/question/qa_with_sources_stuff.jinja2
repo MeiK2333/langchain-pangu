@@ -1,0 +1,11 @@
+{% for qa in qaPairs -%}
+{{ qa.question }}
+
+{{ qa.answer }}
+
+{% endfor -%}
+请阅读以下文章针对输入的问题生成回复，如果问题与文章不相关，则无需参考文章内容，直接回答问题即可。
+文章：{%- for item in context -%}{{ item.pageContent }}{% if not loop.last %}
+{% endif %}
+{%- endfor %}
+问题：{{question}}

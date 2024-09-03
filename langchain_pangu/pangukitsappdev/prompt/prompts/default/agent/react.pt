@@ -1,0 +1,30 @@
+{{sys_prompt}}，您可以使用以下工具：
+{{tool_desc}}
+使用一个合法的json来指定使用哪个工具，action字段标识工具名，actionInput字段表示工具的输入参数。
+合法的action字段取值为[{{tool_names}}]的其中一个
+
+每个json仅提供一个操作，例如：
+{"action": $TOOL_NAME,"actionInput": $INPUT}
+
+请遵循如下形式：
+用户:提出问题
+Thought:考虑之前和后续步骤
+Action:$JSON_BLOB
+Observation:Action返回的的结果
+... (Thought/Action/Observation 迭代N次)
+Thought:我知道问题的答案了
+Action:{"action":"FINAL_ANSWER","actionInput":"结合用户的问题与Thought/Action/Observation，给出最终答案"}
+
+开始！返回必须包含一个Action，是一个合法的JSON。如有必要，请使用工具，且返回一个Action；如果不需要使用工具就能返回最终答案，请直接返回，且是一个FINAL_ANSWER Action。
+{% for message in messages %}{{message.role.desc}}：{{message.content}}
+{% if message.actions | length > 0 %}
+
+以下为你之前为了解决用户问题而进行的工作：
+{% for action in message.actions %}Thought:{{action.thought}}
+Action:{{action.actionJson}}
+Observation:Action(action={{action.action}})返回如下，{{action.observation}}
+{% endfor %}
+请思考并返回下一步的Thought和Action。{% else%}进行推理，返回Thought和Action。{% endif%}
+{% endfor %}
+
+如果已经可以推理出最终答案，请返回一个FINAL_ANSWER Action。
