@@ -1,1 +1,1 @@
-# laangchain-pangu
+# langchain-pangu
