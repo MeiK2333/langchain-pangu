@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
-from pangukitsappdev.api.llms.llm_config import LLMConfig
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 
 from langchain_pangu import PanGuLLM
 

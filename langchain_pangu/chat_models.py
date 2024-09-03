@@ -36,13 +36,13 @@ from langchain_core.outputs import (
 )
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
-from pangukitsappdev.agent.react_pangu_agent import ReactPanguAgent
-from pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
-from pangukitsappdev.api.llms.base import get_llm_params, ConversationMessage, Role
-from pangukitsappdev.api.llms.factory import LLMs
-from pangukitsappdev.api.llms.llm_config import LLMConfig
-from pangukitsappdev.api.tool.base import AbstractTool
-from pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
+from langchain_pangu.pangukitsappdev.agent.react_pangu_agent import ReactPanguAgent
+from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
+from langchain_pangu.pangukitsappdev.api.llms.base import get_llm_params, ConversationMessage, Role
+from langchain_pangu.pangukitsappdev.api.llms.factory import LLMs
+from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
+from langchain_pangu.pangukitsappdev.api.tool.base import AbstractTool
+from langchain_pangu.pangukitsappdev.auth.iam import IAMTokenProvider, IAMTokenProviderFactory
 from requests.exceptions import ChunkedEncodingError
 
 
