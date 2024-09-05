@@ -1,6 +1,6 @@
 [project]
-name = "langchain_pangu"
-version = "0.1.2"
+name = "langchain-pangu"
+version = "0.1.3"
 authors = [
     { name = "MeiK", email = "meik2333@gmail.com" },
 ]
@@ -26,4 +26,4 @@ Homepage = "https://github.com/MeiK2333/langchain-pangu"
 Issues = "https://github.com/MeiK2333/langchain-pangu/issues"
 
 [tool.setuptools.package-data]
-"*" = ["*.pt"]
+"*" = ["*.pt", "*.jinja2"]
