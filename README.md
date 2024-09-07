@@ -1,5 +1,11 @@
 # langchain-pangu
 
+## 使用
+
+```shell
+pip install langchain-pangu==0.1.4
+```
+
 ## dev
 
 ```shell
