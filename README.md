@@ -3,7 +3,7 @@
 ## 使用
 
 ```shell
-pip install langchain-pangu==0.1.4
+pip install langchain-pangu
 ```
 
 ## dev
