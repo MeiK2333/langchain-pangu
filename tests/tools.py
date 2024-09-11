@@ -24,7 +24,20 @@ def search(city: str):
     return f"{city} 今天在下刀子"
 
 
-tools = [search]
+@tool
+def compare(a: float, b: float):
+    """
+    比较两个数字大小
+    """
+    print(f"调用工具比对数字：{a} 和 {b}")
+    if a > b:
+        return f"{a} 更大"
+    elif b > a:
+        return f"{b} 更大"
+    return f"{a} 和 {b} 一样大"
+
+
+tools = [search, compare]
 
 tool_node = ToolNode(tools)
 
@@ -90,6 +103,7 @@ app = workflow.compile(checkpointer=checkpointer)
 # Use the Runnable
 final_state = app.invoke(
     {"messages": [HumanMessage(content="北京天气如何？")]},
+    # {"messages": [HumanMessage(content="13.11 和 13.8 哪个大？")]},
     config={"configurable": {"thread_id": 42}},
 )
 print(final_state["messages"][-1].content)  # 北京现在下刀子雨，请带好雨具。

@@ -17,7 +17,10 @@ from requests.exceptions import ChunkedEncodingError
 from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
 from langchain_pangu.pangukitsappdev.api.llms.base import get_llm_params
 from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
-from langchain_pangu.pangukitsappdev.auth.iam import IAMTokenProviderFactory, IAMTokenProvider
+from langchain_pangu.pangukitsappdev.auth.iam import (
+    IAMTokenProviderFactory,
+    IAMTokenProvider,
+)
 
 
 class PanGuLLM(LLM):
@@ -61,11 +64,11 @@ class PanGuLLM(LLM):
         return headers
 
     def _call(
-            self,
-            prompt: str,
-            stop: Optional[List[str]] = None,
-            run_manager: Optional[CallbackManagerForLLMRun] = None,
-            **kwargs: Any,
+        self,
+        prompt: str,
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[CallbackManagerForLLMRun] = None,
+        **kwargs: Any,
     ) -> str:
         rsp = requests.post(
             self.pangu_url + "/text/completions",
@@ -89,20 +92,20 @@ class PanGuLLM(LLM):
         return text
 
     async def _acall(
-            self,
-            prompt: str,
-            stop: Optional[List[str]] = None,
-            run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-            **kwargs: Any,
+        self,
+        prompt: str,
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+        **kwargs: Any,
     ) -> str:
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                    self.pangu_url + "/text/completions",
-                    headers=self._headers(),
-                    json=self._request_body(prompt, stream=False),
-                    verify_ssl=False,
-                    proxy=self.proxies[proto] if proto in self.proxies else None,
+                self.pangu_url + "/text/completions",
+                headers=self._headers(),
+                json=self._request_body(prompt, stream=False),
+                verify_ssl=False,
+                proxy=self.proxies[proto] if proto in self.proxies else None,
             ) as rsp:
                 if rsp.status == 200:
                     llm_output = await rsp.json()
@@ -115,11 +118,11 @@ class PanGuLLM(LLM):
         return text
 
     def _stream(
-            self,
-            prompt: str,
-            stop: Optional[List[str]] = None,
-            run_manager: Optional[CallbackManagerForLLMRun] = None,
-            **kwargs: Any,
+        self,
+        prompt: str,
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[CallbackManagerForLLMRun] = None,
+        **kwargs: Any,
     ) -> Iterator[GenerationChunk]:
         rsp = requests.post(
             self.pangu_url + "/text/completions",
@@ -145,25 +148,26 @@ class PanGuLLM(LLM):
                     run_manager.on_llm_new_token(chunk.text, chunk=chunk)
         except JSONDecodeError as ex:
             # [DONE]表示stream结束了
-            pass
+            yield GenerationChunk(text="")
         except ChunkedEncodingError as ex:
             logging.warning(f"Meet error: %s", str(ex))
+            yield GenerationChunk(text="")
 
     async def _astream(
-            self,
-            prompt: str,
-            stop: Optional[List[str]] = None,
-            run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-            **kwargs: Any,
+        self,
+        prompt: str,
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+        **kwargs: Any,
     ) -> AsyncIterator[GenerationChunk]:
         proto = self.pangu_url.split("://")[0]
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                    self.pangu_url + "/text/completions",
-                    headers=self._headers(),
-                    json=self._request_body(prompt),
-                    verify_ssl=False,
-                    proxy=self.proxies[proto] if proto in self.proxies else None,
+                self.pangu_url + "/text/completions",
+                headers=self._headers(),
+                json=self._request_body(prompt),
+                verify_ssl=False,
+                proxy=self.proxies[proto] if proto in self.proxies else None,
             ) as rsp:
                 while not rsp.closed:
                     line = await rsp.content.readline()
@@ -182,6 +186,7 @@ class PanGuLLM(LLM):
                             await run_manager.on_llm_new_token(chunk.text, chunk=chunk)
                     if line.startswith(b"event:"):
                         pass
+                yield GenerationChunk(text="")
 
     @property
     def _llm_type(self) -> str:
