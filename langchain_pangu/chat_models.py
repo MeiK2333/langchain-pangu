@@ -125,6 +125,10 @@ class ChatPanGu(BaseChatModel):
             if token
             else {"X-Agent": "pangu-kits-app-dev"}
         )
+        headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        headers["Connection"] = "keep-alive"
+        headers["Pragma"] = "no-cache"
+        headers["Content-Type"] = "application/json; charset=utf-8"
         return headers
 
     async def _astream(
