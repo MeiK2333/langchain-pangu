@@ -1,6 +1,6 @@
 [project]
 name = "langchain-pangu"
-version = "0.1.6"
+version = "0.2.0"
 authors = [
     { name = "MeiK", email = "meik2333@gmail.com" },
 ]
@@ -17,8 +17,8 @@ dependencies = [
     "langchain-community==0.2.15",
     "langgraph==0.2.16",
     "langchain_openai==0.1.23",
-    "sseclient-py==1.8.0",
-    "jinja2==3.1.4"
+    "jinja2==3.1.4",
+    "httpx==0.27.2",
 ]
 
 [project.urls]

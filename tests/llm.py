@@ -1,16 +1,10 @@
-import os
+import asyncio
 
 from langchain_core.prompts import ChatPromptTemplate
 
 from langchain_pangu import PanGuLLM
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 
-os.environ["SDK_CONFIG_PATH"] = "./llm.properties"
-llm = PanGuLLM(
-    llm_config=LLMConfig(),
-)
-
-import asyncio
+llm = PanGuLLM(profile_file="./llm.properties")
 
 
 async def main():
@@ -23,3 +17,15 @@ async def main():
 
 
 asyncio.run(main())
+
+
+def main2():
+    prompt = ChatPromptTemplate.from_messages(
+        [("system", "你是个机器人"), ("human", "{input}")]
+    )
+    chain = prompt | llm
+    for event in chain.stream({"input": "你好，你是谁？"}):
+        print(event)
+
+
+main2()

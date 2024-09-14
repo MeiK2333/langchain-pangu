@@ -1,18 +1,12 @@
-import os
-
 from langchain_core.messages import HumanMessage
 from langchain_core.output_parsers import StrOutputParser
 
 from langchain_pangu import ChatPanGu
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 
-os.environ["SDK_CONFIG_PATH"] = "./llm.properties"
 parser = StrOutputParser()
-model = ChatPanGu(llm_config=LLMConfig())
+model = ChatPanGu(profile_file="./llm.properties")
 
-messages = [
-    HumanMessage(content='你好')
-]
+messages = [HumanMessage(content="你好")]
 
 resp = model.invoke(messages)
 print(resp)
