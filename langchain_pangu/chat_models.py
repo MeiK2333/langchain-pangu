@@ -1,6 +1,5 @@
 import json
 import logging
-from json import JSONDecodeError
 from typing import (
     List,
     Optional,
@@ -15,8 +14,7 @@ from typing import (
 )
 
 import aiohttp
-import requests
-import sseclient
+import httpx
 from langchain_core.callbacks import (
     CallbackManagerForLLMRun,
     AsyncCallbackManagerForLLMRun,
@@ -36,12 +34,10 @@ from langchain_core.outputs import (
 )
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
-from requests.exceptions import ChunkedEncodingError
 
 from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
 from langchain_pangu.pangukitsappdev.api.llms.base import (
     get_llm_params,
-    ConversationMessage,
     Role,
 )
 from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
@@ -51,21 +47,9 @@ from langchain_pangu.pangukitsappdev.auth.iam import (
     IAMTokenProviderFactory,
 )
 from langchain_pangu.tool_calls import PanguToolCalls
+from langchain_pangu.utils import Utils
 
-
-def _pangu_messages(messages: List[BaseMessage]):
-    pangu_messages = []
-    for message in messages:
-        if isinstance(message, SystemMessage):
-            # 此处存疑：盘古的 system 看起来效果并不明显
-            pangu_messages.append({"role": "system", "content": message.content})
-        elif isinstance(message, HumanMessage):
-            pangu_messages.append({"role": "user", "content": message.content})
-        elif isinstance(message, AIMessage):
-            pangu_messages.append({"role": "assistant", "content": message.content})
-        else:
-            raise ValueError("Received unsupported message type for Pangu.")
-    return pangu_messages
+logger = logging.getLogger("langchain-pangu")
 
 
 class ChatPanGu(BaseChatModel):
@@ -81,11 +65,64 @@ class ChatPanGu(BaseChatModel):
     with_prompt: Optional[bool]
     tool_calls: Optional[PanguToolCalls]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        pangu_url: str = None,
+        ak: str = None,
+        sk: str = None,
+        iam_url: str = None,
+        domain: str = None,
+        user: str = None,
+        password: str = None,
+        profile_file: str = None,
+        model_version: str = None,
+        llm_config: LLMConfig = None,
+        temperature: float = None,
+        max_tokens: int = None,
+        presence_penalty: float = None,
+        top_p: float = None,
+        proxies: dict = None,
+        *args,
+        **kwargs,
+    ):
+        Utils.set_kwargs(
+            kwargs,
+            pangu_url=pangu_url,
+            ak=ak,
+            sk=sk,
+            iam_url=iam_url,
+            domain=domain,
+            user=user,
+            password=password,
+            profile_file=profile_file,
+            model_version=model_version,
+            llm_config=llm_config,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            presence_penalty=presence_penalty,
+            top_p=top_p,
+            proxies=proxies,
+        )
         super().__init__(*args, **kwargs)
+
         self.pangu_url: str = self.llm_config.llm_module_config.url
         self.token_getter = IAMTokenProviderFactory.create(self.llm_config.iam_config)
         self.tool_calls = PanguToolCalls(self.llm_config)
+
+    @staticmethod
+    def _pangu_messages(messages: List[BaseMessage]):
+        pangu_messages = []
+        for message in messages:
+            if isinstance(message, SystemMessage):
+                # 此处存疑：盘古的 system 看起来效果并不明显
+                pangu_messages.append({"role": "system", "content": message.content})
+            elif isinstance(message, HumanMessage):
+                pangu_messages.append({"role": "user", "content": message.content})
+            elif isinstance(message, AIMessage):
+                pangu_messages.append({"role": "assistant", "content": message.content})
+            else:
+                raise ValueError("Received unsupported message type for Pangu.")
+        return pangu_messages
 
     def _request_body_with_prompt(self, prompt: str):
         return {
@@ -104,7 +141,7 @@ class ChatPanGu(BaseChatModel):
 
     def _request_body(self, messages: List[BaseMessage], stream=True):
         rsp = {
-            "messages": _pangu_messages(messages),
+            "messages": self._pangu_messages(messages),
             "stream": stream,
             **get_llm_params(
                 {
@@ -118,17 +155,15 @@ class ChatPanGu(BaseChatModel):
         }
         return rsp
 
-    def _headers(self):
-        token = self.token_getter.get_valid_token()
-        headers = (
-            {AUTH_TOKEN_HEADER: token, "X-Agent": "pangu-kits-app-dev"}
-            if token
-            else {"X-Agent": "pangu-kits-app-dev"}
-        )
-        headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        headers["Connection"] = "keep-alive"
-        headers["Pragma"] = "no-cache"
-        headers["Content-Type"] = "application/json; charset=utf-8"
+    def _headers(self, stream: bool = False):
+        headers = {
+            AUTH_TOKEN_HEADER: self.token_getter.get_valid_token(),
+            "X-Agent": "langchain-pangu",
+            "User-Agent": "langchain-pangu",
+        }
+        if stream:
+            headers["Accept"] = "text/event-stream"
+            headers["Cache-Control"] = "no-store"
         return headers
 
     async def _astream(
@@ -138,36 +173,30 @@ class ChatPanGu(BaseChatModel):
         run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> AsyncIterator[ChatGenerationChunk]:
-        proto = self.pangu_url.split("://")[0]
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
+        async with httpx.AsyncClient(
+            verify=False, proxies=self.proxies, http2=True, http1=False
+        ) as client:
+            async with client.stream(
+                "POST",
                 self.pangu_url + "/chat/completions",
-                headers=self._headers(),
+                headers=self._headers(stream=True),
                 json=self._request_body(messages),
-                verify_ssl=False,
-                proxy=self.proxies[proto] if proto in self.proxies else None,
-            ) as rsp:
-                while not rsp.closed:
-                    line = await rsp.content.readline()
-                    if line.startswith(b"data:[DONE]"):
-                        rsp.close()
+            ) as stream:
+                async for line in stream.aiter_lines():
+                    evt, data = Utils.sse_event(line)
+                    if evt == Utils.SSE_CONTINUE:
+                        continue
+                    elif evt == Utils.SSE_DONE:
+                        await client.aclose()
                         break
-                    if line.startswith(b"data:"):
-                        data_json = json.loads(line[5:])
-                        if data_json.get("choices") is None:
-                            raise ValueError(
-                                f"Meet json decode error: {str(data_json)}, not get choices"
-                            )
-                        chunk = ChatGenerationChunk(
-                            message=AIMessageChunk(
-                                content=data_json["choices"][0]["message"]["content"]
-                            )
-                        )
-                        yield chunk
-                        if run_manager:
-                            await run_manager.on_llm_new_token(chunk.text, chunk=chunk)
-                    if line.startswith(b"event:"):
-                        pass
+                    elif evt == Utils.SSE_EVENT:
+                        continue
+                    chunk = ChatGenerationChunk(
+                        message=AIMessageChunk(content=data["message"]["content"])
+                    )
+                    yield chunk
+                    if run_manager:
+                        await run_manager.on_llm_new_token(chunk.text, chunk=chunk)
 
     def _stream(
         self,
@@ -176,37 +205,30 @@ class ChatPanGu(BaseChatModel):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> Iterator[ChatGenerationChunk]:
-        rsp = requests.post(
-            self.pangu_url + "/chat/completions",
-            headers=self._headers(),
-            json=self._request_body(messages),
-            verify=False,
-            stream=True,
-            proxies=self.proxies,
-        )
-        try:
-            rsp.raise_for_status()
-            stream_client: sseclient.SSEClient = sseclient.SSEClient(rsp)
-            for event in stream_client.events():
-                # 解析出Token数据
-                data_json = json.loads(event.data)
-                if data_json.get("choices") is None:
-                    raise ValueError(
-                        f"Meet json decode error: {str(data_json)}, not get choices"
+        with httpx.Client(
+            verify=False, proxies=self.proxies, http2=True, http1=False
+        ) as client:
+            with client.stream(
+                "POST",
+                self.pangu_url + "/chat/completions",
+                headers=self._headers(stream=True),
+                json=self._request_body(messages),
+            ) as stream:
+                for line in stream.iter_lines():
+                    evt, data = Utils.sse_event(line)
+                    if evt == Utils.SSE_CONTINUE:
+                        continue
+                    elif evt == Utils.SSE_DONE:
+                        client.close()
+                        break
+                    elif evt == Utils.SSE_EVENT:
+                        continue
+                    chunk = ChatGenerationChunk(
+                        message=AIMessageChunk(content=data["message"]["content"])
                     )
-                chunk = ChatGenerationChunk(
-                    message=AIMessageChunk(
-                        content=data_json["choices"][0]["message"]["content"]
-                    )
-                )
-                yield chunk
-                if run_manager:
-                    run_manager.on_llm_new_token(chunk.text, chunk=chunk)
-        except JSONDecodeError as ex:
-            # [DONE]表示stream结束了
-            pass
-        except ChunkedEncodingError as ex:
-            logging.warning(f"Meet error: %s", str(ex))
+                    yield chunk
+                    if run_manager:
+                        run_manager.on_llm_new_token(chunk.text, chunk=chunk)
 
     @property
     def _llm_type(self) -> str:
@@ -224,23 +246,27 @@ class ChatPanGu(BaseChatModel):
             body = self._request_body_with_prompt(prompt)
         else:
             body = self._request_body(messages, stream=False)
-        proto = self.pangu_url.split("://")[0]
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
+
+        async with httpx.AsyncClient(verify=False, proxies=self.proxies) as client:
+            resp = await client.post(
                 self.pangu_url + "/chat/completions",
                 headers=self._headers(),
                 json=body,
-                verify_ssl=False,
-                proxy=self.proxies[proto] if proto in self.proxies else None,
-            ) as rsp:
-                if rsp.status == 200:
-                    llm_output = await rsp.json()
-                    text = llm_output["choices"][0]["message"]["content"]
-                else:
-                    raise ValueError(
-                        "Call pangu llm failed, http status: %d",
-                        rsp.status,
-                    )
+            )
+            if resp.status_code == 200:
+                llm_output = resp.json()
+                text = llm_output["choices"][0]["message"]["content"]
+            else:
+                logger.error(
+                    "Call pangu llm failed, http status: %d, error response: %s",
+                    resp.status_code,
+                    resp.content,
+                )
+                raise ValueError(
+                    "Call pangu llm failed, http status: %d, error response: %s",
+                    resp.status_code,
+                    resp.content,
+                )
 
         message = AIMessage(
             content=text,
@@ -265,23 +291,26 @@ class ChatPanGu(BaseChatModel):
             body = self._request_body_with_prompt(prompt)
         else:
             body = self._request_body(messages, stream=False)
-        rsp = requests.post(
+        resp = httpx.post(
             self.pangu_url + "/chat/completions",
             headers=self._headers(),
             json=body,
             verify=False,
-            stream=False,
             proxies=self.proxies,
         )
-
-        if 200 == rsp.status_code:
-            llm_output = rsp.json()
+        if 200 == resp.status_code:
+            llm_output = resp.json()
             text = llm_output["choices"][0]["message"]["content"]
         else:
+            logger.error(
+                "Call pangu llm failed, http status: %d, error response: %s",
+                resp.status_code,
+                resp.content,
+            )
             raise ValueError(
                 "Call pangu llm failed, http status: %d, error response: %s",
-                rsp.status_code,
-                rsp.content,
+                resp.status_code,
+                resp.content,
             )
 
         message = AIMessage(

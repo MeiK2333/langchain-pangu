@@ -12,3 +12,11 @@ resp = model.invoke(messages)
 print(resp)
 chain = model | parser
 print(chain.invoke(messages))
+
+
+async def main():
+    for message in model.stream({"input": "你好"}):
+        print(message)
+
+
+main()
