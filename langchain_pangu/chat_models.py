@@ -1,4 +1,3 @@
-import json
 import logging
 from typing import (
     List,
@@ -13,7 +12,6 @@ from typing import (
     AsyncIterator,
 )
 
-import aiohttp
 import httpx
 from langchain_core.callbacks import (
     CallbackManagerForLLMRun,
@@ -174,7 +172,7 @@ class ChatPanGu(BaseChatModel):
         **kwargs: Any,
     ) -> AsyncIterator[ChatGenerationChunk]:
         async with httpx.AsyncClient(
-            verify=False, proxies=self.proxies, http2=True, http1=False
+            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
         ) as client:
             async with client.stream(
                 "POST",
@@ -206,7 +204,7 @@ class ChatPanGu(BaseChatModel):
         **kwargs: Any,
     ) -> Iterator[ChatGenerationChunk]:
         with httpx.Client(
-            verify=False, proxies=self.proxies, http2=True, http1=False
+            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
         ) as client:
             with client.stream(
                 "POST",
@@ -252,6 +250,7 @@ class ChatPanGu(BaseChatModel):
                 self.pangu_url + "/chat/completions",
                 headers=self._headers(),
                 json=body,
+                timeout=None,
             )
             if resp.status_code == 200:
                 llm_output = resp.json()
@@ -297,6 +296,7 @@ class ChatPanGu(BaseChatModel):
             json=body,
             verify=False,
             proxies=self.proxies,
+            timeout=None,
         )
         if 200 == resp.status_code:
             llm_output = resp.json()

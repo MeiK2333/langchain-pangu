@@ -115,6 +115,7 @@ class PanGuLLM(LLM):
             json=self._request_body(prompt, stream=False),
             verify=False,
             proxies=self.proxies,
+            timeout=None,
         )
 
         if 200 == resp.status_code:
@@ -146,6 +147,7 @@ class PanGuLLM(LLM):
                 self.pangu_url + "/text/completions",
                 headers=self._headers(),
                 json=self._request_body(prompt, stream=False),
+                timeout=None,
             )
 
             if resp.status_code == 200:
@@ -172,7 +174,7 @@ class PanGuLLM(LLM):
         **kwargs: Any,
     ) -> Iterator[GenerationChunk]:
         with httpx.Client(
-            verify=False, proxies=self.proxies, http2=True, http1=False
+            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
         ) as client:
             with client.stream(
                 "POST",
@@ -203,7 +205,7 @@ class PanGuLLM(LLM):
         **kwargs: Any,
     ) -> AsyncIterator[GenerationChunk]:
         async with httpx.AsyncClient(
-            verify=False, proxies=self.proxies, http2=True, http1=False
+            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
         ) as client:
             async with client.stream(
                 "POST",
