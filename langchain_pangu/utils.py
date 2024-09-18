@@ -92,10 +92,14 @@ class Utils:
 
         if "iam_url" in kwargs:
             llm_config.iam_config.iam_url = kwargs["iam_url"]
+        elif llm_config.iam_config.iam_url:
+            pass
         else:
             raise ValueError("`iam_url` field required")
 
         if "project" in kwargs:
             llm_config.iam_config.project_name = kwargs["project"]
+        elif llm_config.iam_config.project_name:
+            pass
         else:
             raise ValueError("`project` field required")
