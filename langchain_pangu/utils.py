@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 from typing import Union, Any
 
 from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
@@ -39,7 +40,7 @@ class Utils:
         if "llm_config" not in kw:
             if "profile_file" in kw:
                 os.environ["SDK_CONFIG_PATH"] = kw["profile_file"]
-            else:
+            elif Path("./llm.properties").exists():
                 os.environ["SDK_CONFIG_PATH"] = "./llm.properties"
             kw["llm_config"] = LLMConfig()
             os.environ.pop("SDK_CONFIG_PATH", None)
@@ -88,3 +89,13 @@ class Utils:
             llm_config.llm_module_config.module_version = kwargs["model_version"]
         if not llm_config.llm_module_config.module_version:
             raise ValueError("`model_version` field required")
+
+        if "iam_url" in kwargs:
+            llm_config.iam_config.iam_url = kwargs["iam_url"]
+        else:
+            raise ValueError("`iam_url` field required")
+
+        if "project" in kwargs:
+            llm_config.iam_config.project_name = kwargs["project"]
+        else:
+            raise ValueError("`project` field required")

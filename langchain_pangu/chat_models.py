@@ -66,6 +66,7 @@ class ChatPanGu(BaseChatModel):
     def __init__(
         self,
         pangu_url: str = None,
+        project: str = None,
         ak: str = None,
         sk: str = None,
         iam_url: str = None,
@@ -86,6 +87,7 @@ class ChatPanGu(BaseChatModel):
         Utils.set_kwargs(
             kwargs,
             pangu_url=pangu_url,
+            project=project,
             ak=ak,
             sk=sk,
             iam_url=iam_url,
