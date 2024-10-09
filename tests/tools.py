@@ -8,10 +8,6 @@ from langgraph.graph import END, START, StateGraph, MessagesState
 from langgraph.prebuilt import ToolNode
 
 from langchain_pangu import ChatPanGu
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import (
-    LLMConfig,
-    LLMModuleConfig,
-)
 
 os.environ["SDK_CONFIG_PATH"] = "./llm.properties"
 

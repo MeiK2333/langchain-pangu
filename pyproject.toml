@@ -1,6 +1,6 @@
 [project]
 name = "langchain-pangu"
-version = "0.3.0"
+version = "0.3.1"
 authors = [
     { name = "MeiK", email = "meik2333@gmail.com" },
 ]
@@ -20,7 +20,8 @@ dependencies = [
     "jinja2",
     "httpx",
     "h2<5,>=3",
-    "pydantic>=2,<3"
+    "pydantic>=2,<3",
+    "pydantic-settings>=2,<3"
 ]
 
 [project.urls]

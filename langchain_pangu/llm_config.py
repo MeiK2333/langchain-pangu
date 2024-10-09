@@ -6,6 +6,10 @@ from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
 
 
+def env_file_func():
+    yield os.environ.get("SDK_CONFIG_PATH", ".env")
+
+
 class HttpConfig(BaseSettings):
     proxy_default_enabled: Optional[bool] = Field(
         alias="sdk.proxy.enabled", default=False
@@ -16,7 +20,7 @@ class HttpConfig(BaseSettings):
     proxy_passwd: Optional[str] = Field(None, alias="sdk.proxy.password")
 
     class Config:
-        env_file = os.environ.get("SDK_CONFIG_PATH", ".env")
+        env_file = env_file_func()
         extra = "allow"
 
     def get_proxy_url(self) -> str:
@@ -62,7 +66,7 @@ class LLMModuleConfig(BaseSettings):
     cot_desc: Optional[str] = Field(None)
 
     class Config:
-        env_file = os.environ.get("SDK_CONFIG_PATH", ".env")
+        env_file = env_file_func()
         extra = "allow"
 
 
@@ -82,7 +86,7 @@ class IAMConfig(BaseSettings):
     x_auth_token: Optional[str] = Field(None, alias="sdk.iam.x_auth_token")
 
     class Config:
-        env_file = os.environ.get("SDK_CONFIG_PATH", ".env")
+        env_file = env_file_func()
         extra = "allow"
 
 
