@@ -8,10 +8,11 @@ from langchain_core.callbacks import (
 )
 from langchain_core.language_models import LLM
 from langchain_core.outputs import GenerationChunk
+from pydantic import Field
 
+from langchain_pangu.llm_config import LLMConfig
 from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
 from langchain_pangu.pangukitsappdev.api.llms.base import get_llm_params
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 from langchain_pangu.pangukitsappdev.auth.iam import (
     IAMTokenProviderFactory,
     IAMTokenProvider,
@@ -22,15 +23,15 @@ logger = logging.getLogger("langchain-pangu")
 
 
 class PanGuLLM(LLM):
-    temperature: Optional[float]
-    max_tokens: Optional[int]
-    top_p: Optional[float]
-    presence_penalty: Optional[float]
-    llm_config: LLMConfig
-    streaming: Optional[bool]
-    proxies: dict = {}
-    pangu_url: Optional[str]
-    token_getter: Optional[IAMTokenProvider]
+    temperature: Optional[float] = Field(None)
+    max_tokens: Optional[int] = Field(None)
+    top_p: Optional[float] = Field(None)
+    presence_penalty: Optional[float] = Field(None)
+    llm_config: Optional[LLMConfig] = Field(None)
+    streaming: Optional[bool] = Field(None)
+    proxies: Optional[dict] = Field(None)
+    pangu_url: Optional[str] = Field(None)
+    token_getter: Optional[IAMTokenProvider] = Field(None)
 
     def __init__(
         self,

@@ -3,17 +3,33 @@
 此文件大部分内容是从盘古 sdk react_pangu_agent.py 复制而来，因为盘古 sdk 将 tools 操作封装成 agent，无法灵活对接 langchain，因此抽出来重新实现
 """
 import json
-from typing import List, Union, Dict, Any, Type, Callable
+from typing import List, Union, Dict, Any, Type, Callable, Optional
 
 from langchain_core.messages import BaseMessage, ToolCall
 from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import BaseTool
 from langchain_core.utils.function_calling import convert_to_openai_tool
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
-from langchain_pangu.pangukitsappdev.api.tool.base import PanguFunction
+from langchain_pangu.llm_config import LLMConfig
 from langchain_pangu.pangukitsappdev.prompt.prompt_tmpl import PromptTemplates
+
+
+class PanguFunction(BaseModel):
+    """PanguFunction参数
+    Attributes:
+        name: tool名称
+        description: tool功能描述，描述tool的作用
+        arguments: tool输入
+        principle: tool使用原则，告诉模型在什么情况下使用tool
+        results: tool输出
+    """
+
+    name: Optional[str] = Field(None)
+    description: Optional[str] = Field(None)
+    arguments: Optional[Any] = Field(None)
+    principle: Optional[str] = Field(None)
+    results: Optional[Any] = Field(None)
 
 
 class PanguToolCalls:
@@ -263,6 +279,6 @@ class PanguToolCalls:
                 description=formatted_func["description"],
                 arguments=formatted_func["parameters"],
                 results={},
-            ).json(ensure_ascii=False, exclude_none=True)
+            ).model_dump_json(exclude_none=True)
             tools.append({"panguFunction": func})
         return self.get_tool_desc_template().format(tools=tools)

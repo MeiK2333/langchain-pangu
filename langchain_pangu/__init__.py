@@ -13,7 +13,6 @@ del metadata  # optional, avoids polluting the results of dir(__package__)
 
 __all__ = [
     "ChatPanGu",
-    "PanGuEmbeddings",
     "PanGuLLM",
     "__version__",
 ]

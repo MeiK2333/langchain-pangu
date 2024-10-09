@@ -6,6 +6,12 @@
 pip install langchain-pangu
 ```
 
+## 升级到 0.3
+
+上游 langchain、langgraph、pedantic 等依赖都进行了大版本的升级，为跟随上游更新，本项目也更新到 0.3 版本
+
+注意 0.3 与之前的版本不兼容，使用 0.3 版本需要将所有依赖都进行升级
+
 ## dev
 
 ```shell

@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import Union, Any
 
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
+from langchain_pangu.llm_config import LLMConfig
 
 
 class Utils:

@@ -32,13 +32,14 @@ from langchain_core.outputs import (
 )
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
+from pydantic import Field
 
+from langchain_pangu.llm_config import LLMConfig
 from langchain_pangu.pangukitsappdev.api.common_config import AUTH_TOKEN_HEADER
 from langchain_pangu.pangukitsappdev.api.llms.base import (
     get_llm_params,
     Role,
 )
-from langchain_pangu.pangukitsappdev.api.llms.llm_config import LLMConfig
 from langchain_pangu.pangukitsappdev.api.tool.base import AbstractTool
 from langchain_pangu.pangukitsappdev.auth.iam import (
     IAMTokenProvider,
@@ -51,17 +52,17 @@ logger = logging.getLogger("langchain-pangu")
 
 
 class ChatPanGu(BaseChatModel):
-    temperature: Optional[float]
-    max_tokens: Optional[int]
-    top_p: Optional[float]
-    presence_penalty: Optional[float]
-    llm_config: LLMConfig
-    streaming: Optional[bool]
-    proxies: dict = {}
-    pangu_url: Optional[str]
-    token_getter: Optional[IAMTokenProvider]
-    with_prompt: Optional[bool]
-    tool_calls: Optional[PanguToolCalls]
+    temperature: Optional[float] = Field(None)
+    max_tokens: Optional[int] = Field(None)
+    top_p: Optional[float] = Field(None)
+    presence_penalty: Optional[float] = Field(None)
+    llm_config: Optional[LLMConfig] = Field(None)
+    streaming: Optional[bool] = Field(None)
+    proxies: Optional[dict] = Field(None)
+    pangu_url: Optional[str] = Field(None)
+    token_getter: Optional[IAMTokenProvider] = Field(None)
+    with_prompt: Optional[bool] = Field(None)
+    tool_calls: Optional[PanguToolCalls] = Field(None)
 
     def __init__(
         self,

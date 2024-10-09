@@ -41,11 +41,7 @@ tools = [search, compare]
 
 tool_node = ToolNode(tools)
 
-model = ChatPanGu(
-    llm_config=LLMConfig(
-        llm_module_config=LLMModuleConfig(module_version="N2_agent_v2")
-    )
-).bind_tools(tools)
+model = ChatPanGu(profile_file="./llm.properties").bind_tools(tools)
 
 
 # Define the function that determines whether to continue or not
