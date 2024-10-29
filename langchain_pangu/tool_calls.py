@@ -151,7 +151,10 @@ class PanguToolCalls:
         tool_name, tool_params = tool_use.split("|", 2)
         # 判断对应 tool 是否存在
         for t in self.tools:
-            if t.name == tool_name:
+            n = t.__name__
+            if hasattr(t, "name"):
+                n = t.name
+            if n == tool_name:
                 break
         else:
             return []
