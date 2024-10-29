@@ -151,10 +151,10 @@ class PanguToolCalls:
         tool_name, tool_params = tool_use.split("|", 2)
         # 判断对应 tool 是否存在
         for t in self.tools:
-            n = t.__name__
-            if hasattr(t, "name"):
-                n = t.name
-            if n == tool_name:
+            formatted_tool = convert_to_openai_tool(t)
+            if "function" not in formatted_tool:
+                continue
+            if formatted_tool["function"]["name"] == tool_name:
                 break
         else:
             return []
