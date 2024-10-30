@@ -1,6 +1,6 @@
 [project]
 name = "langchain-pangu"
-version = "0.2.5"
+version = "0.2.6"
 authors = [
     { name = "MeiK", email = "meik2333@gmail.com" },
 ]

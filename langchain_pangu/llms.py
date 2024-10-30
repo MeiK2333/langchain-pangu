@@ -176,7 +176,7 @@ class PanGuLLM(LLM):
         **kwargs: Any,
     ) -> Iterator[GenerationChunk]:
         with httpx.Client(
-            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
+            verify=False, proxies=self.proxies, http2=True, http1=True, timeout=None
         ) as client:
             with client.stream(
                 "POST",
@@ -207,7 +207,7 @@ class PanGuLLM(LLM):
         **kwargs: Any,
     ) -> AsyncIterator[GenerationChunk]:
         async with httpx.AsyncClient(
-            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
+            verify=False, proxies=self.proxies, http2=True, http1=True, timeout=None
         ) as client:
             async with client.stream(
                 "POST",

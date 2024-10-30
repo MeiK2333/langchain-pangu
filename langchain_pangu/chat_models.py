@@ -174,7 +174,7 @@ class ChatPanGu(BaseChatModel):
         **kwargs: Any,
     ) -> AsyncIterator[ChatGenerationChunk]:
         async with httpx.AsyncClient(
-            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
+            verify=False, proxies=self.proxies, http2=True, http1=True, timeout=None
         ) as client:
             async with client.stream(
                 "POST",
@@ -206,7 +206,7 @@ class ChatPanGu(BaseChatModel):
         **kwargs: Any,
     ) -> Iterator[ChatGenerationChunk]:
         with httpx.Client(
-            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
+            verify=False, proxies=self.proxies, http2=True, http1=True, timeout=None
         ) as client:
             with client.stream(
                 "POST",
