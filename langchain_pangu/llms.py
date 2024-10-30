@@ -32,6 +32,7 @@ class PanGuLLM(LLM):
     proxies: Optional[dict] = Field(None)
     pangu_url: Optional[str] = Field(None)
     token_getter: Optional[IAMTokenProvider] = Field(None)
+    http2: bool = Field(True)
 
     def __init__(
         self,
@@ -177,7 +178,7 @@ class PanGuLLM(LLM):
         **kwargs: Any,
     ) -> Iterator[GenerationChunk]:
         with httpx.Client(
-            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
+            verify=False, proxies=self.proxies, http2=self.http2, http1=not self.http2, timeout=None
         ) as client:
             with client.stream(
                 "POST",
@@ -208,7 +209,7 @@ class PanGuLLM(LLM):
         **kwargs: Any,
     ) -> AsyncIterator[GenerationChunk]:
         async with httpx.AsyncClient(
-            verify=False, proxies=self.proxies, http2=True, http1=False, timeout=None
+            verify=False, proxies=self.proxies, http2=self.http2, http1=not self.http2, timeout=None
         ) as client:
             async with client.stream(
                 "POST",
